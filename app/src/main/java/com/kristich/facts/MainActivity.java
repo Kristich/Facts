@@ -14,6 +14,10 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
 
+    private static final String KEY_FACT = "KEY_FACT";
+
+    private static final String KEY_COLOR = "KEY_COLOR";
+
     public TextView factLabel;
 
     public Button showFactButton;
@@ -25,6 +29,34 @@ public class MainActivity extends AppCompatActivity {
 
     private RelativeLayout relativeLayout;
 
+    private String fact = factsBook.facts[0];
+    private int color = Color.parseColor(colorWheel.colors[0]);
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+
+        outState.putString(KEY_FACT, fact);
+
+        outState.putInt(KEY_COLOR, color);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        fact = savedInstanceState.getString(KEY_FACT);
+        color = savedInstanceState.getInt(KEY_COLOR);
+
+
+        factLabel.setText(fact);
+
+        relativeLayout.setBackgroundColor(color);
+
+        showFactButton.setTextColor(color);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +67,11 @@ public class MainActivity extends AppCompatActivity {
 
         factLabel = (TextView) findViewById(R.id.factTextView);
 
+        factLabel.setText(factsBook.facts[0]);
+
         showFactButton = (Button) findViewById(R.id.showFactButton);
+
+        showFactButton.setTextColor(Color.parseColor(colorWheel.colors[0]));
 
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
 
@@ -63,11 +99,15 @@ public class MainActivity extends AppCompatActivity {
 //
 //                }
 
-                int color = colorWheel.getColor();
+                color = colorWheel.getColor();
 
                 relativeLayout.setBackgroundColor(color);
 
-                factLabel.setText(factsBook.getFact());
+                fact = factsBook.getFact();
+
+                factLabel.setText(fact);
+
+                showFactButton.setTextColor(color);
 
             }
         });
