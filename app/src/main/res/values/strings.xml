@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Facts</string>
+    <string name="question">Did you know?</string>
+    <string name="default_fact">People yawn when they wake up in the morning</string>
+    <string name="show_another_fact">Show another Fact</string>
 </resources>
